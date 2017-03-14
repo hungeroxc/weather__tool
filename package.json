@@ -1,0 +1,21 @@
+{
+  "name": "weather_tool",
+  "version": "1.2.5",
+  "description": "一款可以使用命令行查看天气的工具",
+  "main": "./bin/weather",
+  "bin": {
+    "weather": "./bin/weather"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "weather",
+    "weather_tool"
+  ],
+  "author": "OXC",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}
