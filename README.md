@@ -5,7 +5,7 @@
 
 (1) 全局安装
 
-`$ npm install -g weather_tool`
+`$ npm install -g weather_oxc`
 
 ### 使用方法
 
@@ -17,3 +17,7 @@
 (2)查看它地所在天气：weather+地名拼音
 
 `$ weather guangzhou`
+
+(3)4月1日支持新功能：weather+地名中文
+
+`$ weather 广州`

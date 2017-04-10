@@ -1,40 +1,48 @@
 #!/usr/bin/env node
 
-var request = require('request');
+var request = require('request'),
+    fundCity = require('../city-list').fundCity
 
 
-if(process.argv[2]){
-	var cityWheater = 'http://api.jirengu.com/weather.php?city=' + process.argv[2]
-	request(cityWheater, function(e, r, b){
-		print(b)
-	})
-}else{
-	request('http://api.jirengu.com/weather.php', function(e, r, b){
-		print(b)
-	})
+if (process.argv[2]) {
+    var cityName = fundCity(process.argv[2])
+    var cityWheater = 'http://api.jirengu.com/weather.php?city=' + cityName
+    request(cityWheater, function(e, r, b) {
+        print(b)
+    })
+} else {
+    request('http://api.jirengu.com/weather.php', function(e, r, b) {
+        print(b)
+    })
 }
 
 
 
-function print(b){
-	var data = (JSON.parse(b)).results[0]
-	var str = ''
-	str += "您查询的地方是：" + data.currentCity + "\n" + "\n"
-	str += "下面是您所处地今日的天气：\n" 
-	str += "时间：" + data.weather_data[0].date + "\n"
-	str += "温度：" + data.weather_data[0].temperature + "\n"
-	str += "风度：" + data.weather_data[0].wind + "\n" + "\n"
-	str += "今日建议：" + "\n"
-	str += "穿衣指数：" + data.index[0].des + "\n"
-	str += "洗车指数：" + data.index[1].des + "\n"
-	str += "旅游指数：" + data.index[2].des + "\n"
-	str += "运动指数：" + data.index[3].des + "\n"
-	str += "紫外线强度指数：" + data.index[4].des + "\n" + "\n"
-	str += "以下是接下来几天的天气：\n"
-	for(var i = 1; i < data.weather_data.length; i++){
-		str += "时间：" + data.weather_data[i].date
-		str += "温度：" + data.weather_data[i].temperature
-		str += "风度：" + data.weather_data[i].wind + "\n"
-	}
-	console.log(str)
+
+function print(b) {
+    if ((JSON.parse(b)).error === 0) {
+        var data = (JSON.parse(b)).results[0]
+        var str = ''
+        str += "您查询的地方是：" + data.currentCity + "\n" + "\n"
+        str += "下面是您所处地今日的天气：\n"
+        str += "时间：" + data.weather_data[0].date + "\n"
+        str += "温度：" + data.weather_data[0].temperature + "\n"
+        str += "风度：" + data.weather_data[0].wind + "\n" + "\n"
+        str += "今日建议：" + "\n"
+        str += "穿衣指数：" + data.index[0].des + "\n"
+        str += "洗车指数：" + data.index[1].des + "\n"
+        str += "旅游指数：" + data.index[2].des + "\n"
+        str += "运动指数：" + data.index[3].des + "\n"
+        str += "紫外线强度指数：" + data.index[4].des + "\n" + "\n"
+        str += "以下是接下来几天的天气：\n"
+        for (var i = 1; i < data.weather_data.length; i++) {
+            str += "时间：" + data.weather_data[i].date
+            str += "温度：" + data.weather_data[i].temperature
+            str += "风度：" + data.weather_data[i].wind + "\n"
+        }
+        console.log(str)
+    } else {
+        console.log('您输入的地址有误，或者IP地址出现错误')
+    }
+
 }
