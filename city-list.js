@@ -2572,6 +2572,6 @@ function fundCity(cityname) {
     }
 }
 
-
+console.log(fundCity)
 
 module.exports.fundCity = fundCity
